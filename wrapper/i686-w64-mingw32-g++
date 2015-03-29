@@ -1,9 +1,8 @@
 #! /bin/bash
-echo "*** WRAPPER ***"
 /usr/bin/i686-w64-mingw32-g++.org $*
 STATUS=$?
-echo "*** WRAPPER Status: $STATUS"
 if [ $STATUS -ne 0 ]; then
+	echo "*** WRAPPER Status: $STATUS"
 	sleep 1
 	/usr/bin/i686-w64-mingw32-g++.org $*
 	STATUS=$?
