@@ -3,6 +3,7 @@ language: c
 
 env:
   global:
+    - secure: TGHDMzXVEcSb5ljclIoDobMzsaDmIjk8e4a9GSwtqgEVHxVZyTOKmk+NYVyxr8I/Rtk2soR55R/XyM2UPH9voYdr67a442bPoP76SK+F8e9ylI7cca2KPzQjhFt+RkjItDrPxerGwS0Rmc8k3nZSk3hTMOPxQJZSqvi9wrFluAo=
     - PATH=/opt/mingw64/bin/:/opt/mingw32/bin/:$PATH
 
 
@@ -28,4 +29,5 @@ before_install:
 script:
   - unset CC
   - ./.build.sh
+  - python installer/ivy/deploy.py build/artifacts/artifacts_wxwidgets.xml
 
