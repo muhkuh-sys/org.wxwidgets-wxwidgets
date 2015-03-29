@@ -24,7 +24,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-make -j `nproc`
+make
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -73,7 +73,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-make -j `nproc`
+make
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
