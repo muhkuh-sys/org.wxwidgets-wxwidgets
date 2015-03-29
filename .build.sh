@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Get the root folder for the build.
+BUILD_ROOT=`pwd`
+
 tar fxj wxWidgets-3.0.2.tar.bz2
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
@@ -18,7 +21,8 @@ fi
 #
 mkdir -p build_win32
 cd build_win32
-../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets-3.0.2/win32/ --enable-vendor=muhkuh --disable-shared
+export LDFLAGS="-static-libgcc -static-libstdc++"
+../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets/win32/ --enable-vendor=muhkuh --disable-shared
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -36,7 +40,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-pushd /tmp/wxwidgets-3.0.2/win32/lib
+pushd /tmp/wxwidgets/win32/lib
 cp libwx_baseu-3.0-i686-w64-mingw32.a         libwx_baseu-3.0.a
 cp libwx_baseu_net-3.0-i686-w64-mingw32.a     libwx_baseu_net-3.0.a
 cp libwx_baseu_xml-3.0-i686-w64-mingw32.a     libwx_baseu_xml-3.0.a
@@ -57,6 +61,13 @@ cp libwxscintilla-3.0-i686-w64-mingw32.a      libwx_mswu_scintilla-3.0.a
 cp libwxscintilla-3.0-i686-w64-mingw32.a      libwx_mswu_scintilla-3.0-i686-w64-mingw32.a
 popd
 
+pushd /tmp/wxwidgets/win32
+python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+popd
+
 cd ..
 
 
@@ -66,7 +77,8 @@ cd ..
 #
 mkdir -p build_win64
 cd build_win64
-../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets-3.0.2/win64/ --enable-vendor=muhkuh --disable-shared
+export LDFLAGS="-static-libgcc -static-libstdc++"
+../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets/win64/ --enable-vendor=muhkuh --disable-shared
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	cat config.log
@@ -85,7 +97,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-pushd /tmp/wxwidgets-3.0.2/win64/lib
+pushd /tmp/wxwidgets/win64/lib
 cp libwx_baseu-3.0-x86_64-w64-mingw32.a         libwx_baseu-3.0.a
 cp libwx_baseu_net-3.0-x86_64-w64-mingw32.a     libwx_baseu_net-3.0.a
 cp libwx_baseu_xml-3.0-x86_64-w64-mingw32.a     libwx_baseu_xml-3.0.a
@@ -106,12 +118,40 @@ cp libwxscintilla-3.0-x86_64-w64-mingw32.a      libwx_mswu_scintilla-3.0.a
 cp libwxscintilla-3.0-x86_64-w64-mingw32.a      libwx_mswu_scintilla-3.0-x86_64-w64-mingw32.a
 popd
 
+pushd /tmp/wxwidgets/win32
+python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+popd
+
 cd ../..
 
 
 #-----------------------------------------------------------------------------
 #
-# Archive all development files.
+# Assemble the artifacts.
 #
-pushd /tmp/wxwidgets-3.0.2
-tar cfj wxwidgets-3.0.2.tar.bz2 win32 win64
+rm -rf build
+mkdir build
+cd build
+cmake ../installer/ivy
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+        exit 1
+fi
+
+make
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+        exit 1
+fi
+
+make install
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+        exit 1
+fi
+
+cd ..
+
