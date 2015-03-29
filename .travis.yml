@@ -18,6 +18,8 @@ before_install:
   - virtualenv ~/virtualenv/python2.7
   - source ~/virtualenv/python2.7/bin/activate
   - pip install -q requests
+  - sudo mv /usr/bin/i686-w64-mingw32-g++ /usr/bin/i686-w64-mingw32-g++.org
+  - sudo cp wrapper/i686-w64-mingw32-g++ /usr/bin/i686-w64-mingw32-g++
 
 
 # This is the command to build the whole project and pack the results in a distributable form.
