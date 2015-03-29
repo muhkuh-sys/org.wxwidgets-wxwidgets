@@ -21,11 +21,10 @@ cd build_win32
 ../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets-3.0.2/win32/ --enable-vendor=muhkuh --disable-shared
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
-	cat config.log
 	exit 1
 fi
 
-make
+make -j `nproc`
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -74,7 +73,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-make
+make -j `nproc`
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -116,4 +115,3 @@ cd ../..
 #
 pushd /tmp/wxwidgets-3.0.2
 tar cfj wxwidgets-3.0.2.tar.bz2 win32 win64
-
