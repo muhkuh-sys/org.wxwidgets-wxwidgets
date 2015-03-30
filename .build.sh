@@ -22,7 +22,7 @@ fi
 mkdir -p build_win32
 cd build_win32
 export LDFLAGS="-static-libgcc -static-libstdc++"
-../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets/win32/ --enable-vendor=muhkuh --disable-shared
+../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets/windows_x86/ --enable-vendor=muhkuh --disable-shared
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -40,7 +40,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-pushd /tmp/wxwidgets/win32/lib
+pushd /tmp/wxwidgets/windows_x86/lib
 cp libwx_baseu-3.0-i686-w64-mingw32.a         libwx_baseu-3.0.a
 cp libwx_baseu_net-3.0-i686-w64-mingw32.a     libwx_baseu_net-3.0.a
 cp libwx_baseu_xml-3.0-i686-w64-mingw32.a     libwx_baseu_xml-3.0.a
@@ -61,7 +61,7 @@ cp libwxscintilla-3.0-i686-w64-mingw32.a      libwx_mswu_scintilla-3.0.a
 cp libwxscintilla-3.0-i686-w64-mingw32.a      libwx_mswu_scintilla-3.0-i686-w64-mingw32.a
 popd
 
-pushd /tmp/wxwidgets/win32
+pushd /tmp/wxwidgets/windows_x86
 python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -78,7 +78,7 @@ cd ..
 mkdir -p build_win64
 cd build_win64
 export LDFLAGS="-static-libgcc -static-libstdc++"
-../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets/win64/ --enable-vendor=muhkuh --disable-shared
+../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets/windows_amd64/ --enable-vendor=muhkuh --disable-shared
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	cat config.log
@@ -97,7 +97,7 @@ if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
 
-pushd /tmp/wxwidgets/win64/lib
+pushd /tmp/wxwidgets/windows_amd64/lib
 cp libwx_baseu-3.0-x86_64-w64-mingw32.a         libwx_baseu-3.0.a
 cp libwx_baseu_net-3.0-x86_64-w64-mingw32.a     libwx_baseu_net-3.0.a
 cp libwx_baseu_xml-3.0-x86_64-w64-mingw32.a     libwx_baseu_xml-3.0.a
@@ -118,7 +118,7 @@ cp libwxscintilla-3.0-x86_64-w64-mingw32.a      libwx_mswu_scintilla-3.0.a
 cp libwxscintilla-3.0-x86_64-w64-mingw32.a      libwx_mswu_scintilla-3.0-x86_64-w64-mingw32.a
 popd
 
-pushd /tmp/wxwidgets/win32
+pushd /tmp/wxwidgets/windows_amd64
 python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
 if [ $STATUS -ne 0 ]; then
 	exit 1

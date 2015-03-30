@@ -5,8 +5,8 @@ PROJECT("wxwidgets")
 INCLUDE(ExternalProject)
 
 
-SET(MUHKUH_WIN32_INSTALL "/tmp/wxwidgets/win32")
-SET(MUHKUH_WIN64_INSTALL "/tmp/wxwidgets/win64")
+SET(MUHKUH_WIN32_INSTALL "/tmp/wxwidgets/windows_x86")
+SET(MUHKUH_WIN64_INSTALL "/tmp/wxwidgets/windows_amd64")
 
 # The version number is a combination of the wxWidget version and the packaging.
 # The major and minor numbers are taken from the wxWidget version, i.e. wxWidgets 3.0.2

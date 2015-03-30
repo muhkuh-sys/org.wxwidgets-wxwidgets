@@ -14,7 +14,7 @@ CONFIGURE_FILE(ivy.xml ivy-${VERSION_FULL}.xml)
 # Install the 32bit files.
 #
 INSTALL(DIRECTORY ${MUHKUH_WIN32_INSTALL}
-        DESTINATION windows_x86
+        DESTINATION .
 )
 
 
@@ -23,7 +23,7 @@ INSTALL(DIRECTORY ${MUHKUH_WIN32_INSTALL}
 # Install the 64bit files.
 #
 INSTALL(DIRECTORY ${MUHKUH_WIN64_INSTALL}
-        DESTINATION windows_amd64
+        DESTINATION .
 )
 
 
