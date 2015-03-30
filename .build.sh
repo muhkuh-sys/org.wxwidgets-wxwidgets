@@ -22,7 +22,7 @@ fi
 mkdir -p build_win32
 cd build_win32
 export LDFLAGS="-static-libgcc -static-libstdc++"
-../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets/windows_x86/ --enable-vendor=muhkuh --disable-shared
+../configure --host=i686-w64-mingw32 --prefix=/tmp/wxwidgets/windows_x86/ --enable-vendor=muhkuh --disable-shared --disable-precomp-headers
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
@@ -84,7 +84,7 @@ cd ..
 mkdir -p build_win64
 cd build_win64
 export LDFLAGS="-static-libgcc -static-libstdc++"
-../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets/windows_amd64/ --enable-vendor=muhkuh --disable-shared
+../configure --host=x86_64-w64-mingw32 --prefix=/tmp/wxwidgets/windows_amd64/ --enable-vendor=muhkuh --disable-shared --disable-precomp-headers
 STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	cat config.log
