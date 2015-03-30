@@ -1,0 +1,28 @@
+#! /bin/bash
+$0.org $*
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	echo "*** WRAPPER Status: $STATUS"
+	sync
+	sleep 1
+	echo "Retry 1"
+	$0.org $*
+	STATUS=$?
+	if [ $STATUS -ne 0 ]; then
+		echo "*** WRAPPER Status: $STATUS"
+		sync
+		sleep 2
+		echo "Retry 2"
+		$0.org $*
+		STATUS=$?
+		if [ $STATUS -ne 0 ]; then
+			echo "*** WRAPPER Status: $STATUS"
+			sync
+			sleep 4
+			echo "Retry 3"
+			$0.org $*
+			STATUS=$?
+		fi
+	fi
+fi
+exit $STATUS
