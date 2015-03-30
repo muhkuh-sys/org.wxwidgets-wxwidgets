@@ -4,7 +4,9 @@ language: c
 env:
   global:
     - secure: TGHDMzXVEcSb5ljclIoDobMzsaDmIjk8e4a9GSwtqgEVHxVZyTOKmk+NYVyxr8I/Rtk2soR55R/XyM2UPH9voYdr67a442bPoP76SK+F8e9ylI7cca2KPzQjhFt+RkjItDrPxerGwS0Rmc8k3nZSk3hTMOPxQJZSqvi9wrFluAo=
-
+  matrix:
+    - MY_TARGET_BITS=32
+    - MY_TARGET_BITS=64
 
 before_install:
   - sudo dpkg --purge cmake cmake-doc cmake-data
