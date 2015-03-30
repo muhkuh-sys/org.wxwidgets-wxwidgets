@@ -62,7 +62,13 @@ cp libwxscintilla-3.0-i686-w64-mingw32.a      libwx_mswu_scintilla-3.0-i686-w64-
 popd
 
 pushd /tmp/wxwidgets/windows_x86
-python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
+python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py '{}' ';'
+STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
@@ -119,7 +125,13 @@ cp libwxscintilla-3.0-x86_64-w64-mingw32.a      libwx_mswu_scintilla-3.0-x86_64-
 popd
 
 pushd /tmp/wxwidgets/windows_amd64
-python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0 lib/*.a
+python $BUILD_ROOT/tests/mingw_dll_dependencies.py bin/wxrc-3.0
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+	exit 1
+fi
+find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py '{}' ';'
+STATUS=$?
 if [ $STATUS -ne 0 ]; then
 	exit 1
 fi
