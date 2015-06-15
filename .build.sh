@@ -1,5 +1,18 @@
 #! /bin/bash
 
+# Set the target architecture.
+if [ -z "$MY_TARGET_BITS" ]; then
+	export MY_TARGET_BITS=`getconf LONG_BIT`
+	echo "Defaulting to $MY_TARGET_BITS bits."
+fi
+
+# Set the number of CPUs to use to a default of 'all'.
+if [ -z "$LIMIT_USED_CPUS" ]; then
+	export LIMIT_USED_CPUS=`nproc`
+	echo "Using $LIMIT_USED_CPUS CPUs."
+fi
+
+
 # Get the root folder for the build.
 BUILD_ROOT=`pwd`
 
@@ -29,7 +42,7 @@ if [ $MY_TARGET_BITS -eq 32 ]; then
 		exit 1
 	fi
 	
-	make
+	make -j $LIMIT_USED_CPUS
 	STATUS=$?
 	if [ $STATUS -ne 0 ]; then
 		exit 1
@@ -68,7 +81,7 @@ if [ $MY_TARGET_BITS -eq 32 ]; then
 	if [ $STATUS -ne 0 ]; then
 		exit 1
 	fi
-	find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py '{}' ';'
+	find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py --objdump i686-w64-mingw32-objdump '{}' ';'
 	STATUS=$?
 	if [ $STATUS -ne 0 ]; then
 		exit 1
@@ -93,7 +106,7 @@ if [ $MY_TARGET_BITS -eq 64 ]; then
 		exit 1
 	fi
 	
-	make
+	make -j $LIMIT_USED_CPUS
 	STATUS=$?
 	if [ $STATUS -ne 0 ]; then
 		exit 1
@@ -132,7 +145,7 @@ if [ $MY_TARGET_BITS -eq 64 ]; then
 	if [ $STATUS -ne 0 ]; then
 		exit 1
 	fi
-	find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py '{}' ';'
+	find . -name *.a -exec python $BUILD_ROOT/tests/mingw_dll_dependencies.py --objdump x86_64-w64-mingw32-objdump '{}' ';'
 	STATUS=$?
 	if [ $STATUS -ne 0 ]; then
 		exit 1
