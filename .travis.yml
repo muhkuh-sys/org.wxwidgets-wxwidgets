@@ -4,6 +4,7 @@ language: c
 env:
   global:
     - secure: TGHDMzXVEcSb5ljclIoDobMzsaDmIjk8e4a9GSwtqgEVHxVZyTOKmk+NYVyxr8I/Rtk2soR55R/XyM2UPH9voYdr67a442bPoP76SK+F8e9ylI7cca2KPzQjhFt+RkjItDrPxerGwS0Rmc8k3nZSk3hTMOPxQJZSqvi9wrFluAo=
+    - PATH=/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin:${PATH}
   matrix:
     - MY_TARGET_BITS=32
     - MY_TARGET_BITS=64
@@ -13,17 +14,13 @@ before_install:
   - curl http://download.opensuse.org/repositories/home:/doc_bacardi/xUbuntu_12.04/Release.key | sudo apt-key add -
   - echo "deb http://download.opensuse.org/repositories/home:/doc_bacardi/xUbuntu_12.04 ./" | sudo tee -a /etc/apt/sources.list
   - sudo apt-get update -qq
-  - sudo apt-get --assume-yes install mingw-w64 g++-mingw-w64 g++-mingw-w64-i686 g++-mingw-w64-x86-64 gcc-mingw-w64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 gcc-mingw-w64-i686 gcc-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils-mingw-w64-x86-64
+  - sudo apt-get --assume-yes install mingw-w64-mbs
   - sudo apt-get --assume-yes install gcc-multilib g++-multilib make libudev-dev libreadline6-dev
   - sudo apt-get --assume-yes install cmake3
   - sudo apt-get --assume-yes install python-pip python-virtualenv
   - virtualenv ~/virtualenv/python2.7
   - source ~/virtualenv/python2.7/bin/activate
   - pip install -q requests
-  - sudo mv /usr/bin/i686-w64-mingw32-g++ /usr/bin/i686-w64-mingw32-g++.org
-  - sudo cp wrapper/wrapper /usr/bin/i686-w64-mingw32-g++
-  - sudo mv /usr/bin/x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++.org
-  - sudo cp wrapper/wrapper /usr/bin/x86_64-w64-mingw32-g++
 
 
 # This is the command to build the whole project and pack the results in a distributable form.
