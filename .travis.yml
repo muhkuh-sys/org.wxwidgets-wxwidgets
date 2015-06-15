@@ -5,6 +5,7 @@ env:
   global:
     - secure: TGHDMzXVEcSb5ljclIoDobMzsaDmIjk8e4a9GSwtqgEVHxVZyTOKmk+NYVyxr8I/Rtk2soR55R/XyM2UPH9voYdr67a442bPoP76SK+F8e9ylI7cca2KPzQjhFt+RkjItDrPxerGwS0Rmc8k3nZSk3hTMOPxQJZSqvi9wrFluAo=
     - PATH=/opt/mingw-w64-i686/bin:/opt/mingw-w64-x86_64/bin:${PATH}
+    - LIMIT_USED_CPUS=1
   matrix:
     - MY_TARGET_BITS=32
     - MY_TARGET_BITS=64
